@@ -12,7 +12,7 @@ Feature: Log in to the web application
       | username      | password     |
       | standard_user | secret_sauce |
 
-  Scenario Outline: Standard user can login with invalid cridential
+  Scenario Outline: Standard user can't login with valid cridential
     Given user open the web address
     Then user input <username> as username
     And user input <password> as password
