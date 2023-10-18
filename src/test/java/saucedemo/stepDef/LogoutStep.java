@@ -6,8 +6,15 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import saucedemo.utils.ScenarioContext;
+
+import java.time.Duration;
 
 public class LogoutStep {
 
@@ -28,7 +35,15 @@ public class LogoutStep {
 
     @Then("user click Logout menu")
     public void userClickLogoutMenu() {
-        this.driver.findElement(By.id("logout_sidebar_link")).click();
+        Wait<WebDriver> wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        try{
+            WebElement logoutBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("logout_sidebar_link")));
+            logoutBtn.click();
+            Assert.assertTrue("Logout menu clicked", true);
+        }catch (ElementNotInteractableException e) {
+            System.out.println("Element not interactable: " + e.getMessage());
+            Assert.fail();
+        }
     }
 
     @Then("user successfully logout and redirected to the login page")
@@ -36,10 +51,6 @@ public class LogoutStep {
         String curUlr = this.driver.getCurrentUrl();
         Assert.assertEquals(this.context.baseUrl, curUlr);
     }
-
-
-
-
 
     @Given("user was logged out successfully")
     public void userWasLoggedOutSuccessfully() {
@@ -54,9 +65,4 @@ public class LogoutStep {
         this.context.isAfterLogout = true;
     }
 
-
-    /*@After("@LogoutPositive or @LogoutNegative")
-    public void tearDown() {
-        this.context.tearDown();
-    }*/
 }

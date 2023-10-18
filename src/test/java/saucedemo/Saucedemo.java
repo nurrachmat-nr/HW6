@@ -3,7 +3,9 @@ package saucedemo;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
+//import org.openqa.selenium.By;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,7 +27,7 @@ public class Saucedemo {
     //private ScenarioContext context;
     public Saucedemo() {
         System.out.println("Constructor Saucedemo");
-
+        WebDriverManager.chromedriver().setup();
     }
 
     public void setup(){
