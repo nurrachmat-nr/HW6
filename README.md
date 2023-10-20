@@ -69,4 +69,4 @@
 ```
 
 ### Report
-![](report/Cucumber Test Report.png)
+![](report/Cucumber%20Test%20Report.png)
